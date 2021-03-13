@@ -13,10 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.androiddevchallenge.data
+package com.example.androiddevchallenge
 
-data class Plant(
-    val name: String,
-    val imageUrl: String,
-    val description: String
-)
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import dev.chrisbanes.accompanist.insets.statusBarsPadding
+
+@Composable
+fun Favorites() {
+    Surface(color = MaterialTheme.colors.background, modifier = Modifier.fillMaxSize().statusBarsPadding()) {
+        Text(
+            text = "Favorites",
+        )
+    }
+}

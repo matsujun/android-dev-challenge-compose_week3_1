@@ -1,6 +1,20 @@
+/*
+ * Copyright 2021 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.example.androiddevchallenge
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,17 +26,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Card
-import androidx.compose.material.Checkbox
-import androidx.compose.material.CheckboxDefaults
-import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -39,21 +44,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.androiddevchallenge.data.Plant
-import com.example.androiddevchallenge.data.plants
-import com.example.androiddevchallenge.data.themes
+import com.example.androiddevchallenge.feature.home.Plants
+import com.example.androiddevchallenge.feature.home.Themes
 import com.example.androiddevchallenge.ui.theme.MyTheme
 import com.example.androiddevchallenge.ui.theme.typography
-import com.skydoves.landscapist.glide.GlideImage
 import dev.chrisbanes.accompanist.insets.navigationBarsPadding
-
 
 @Composable
 fun Home() {
@@ -119,7 +119,8 @@ fun Home() {
             Row(
                 modifier = Modifier
                     .paddingFromBaseline(top = 32.dp, bottom = 16.dp)
-                    .padding(start = 16.dp)
+                    .padding(start = 16.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
                     text = stringResource(id = R.string.home_garden),
@@ -128,7 +129,6 @@ fun Home() {
                 )
                 IconButton(
                     onClick = {
-
                     }
                 ) {
                     Icon(
@@ -141,144 +141,8 @@ fun Home() {
             }
             Plants()
         }
-
     }
 }
-
-@Composable
-fun Themes() {
-    LazyRow {
-        itemsIndexed(items = themes) { index, theme ->
-            if (index == 0) {
-                Spacer(modifier = Modifier.width(16.dp))
-            } else {
-                Spacer(modifier = Modifier.width(8.dp))
-            }
-            Card(
-                modifier = Modifier
-                    .wrapContentSize()
-                    .padding(bottom = 8.dp),
-                elevation = 1.dp,
-                shape = MaterialTheme.shapes.small,
-                backgroundColor = MaterialTheme.colors.background
-            ) {
-                Column(
-                    modifier = Modifier.wrapContentSize()
-                ) {
-                    GlideImage(
-                        imageModel = theme.imageUrl,
-                        modifier = Modifier
-                            .width(136.dp)
-                            .height(96.dp),
-                        alignment = Alignment.Center,
-                        contentScale = ContentScale.Crop
-                    )
-                    Text(
-                        text = theme.name,
-                        style = typography.h2,
-                        modifier = Modifier
-                            .background(MaterialTheme.colors.background)
-                            .paddingFromBaseline(top = 24.dp, bottom = 16.dp)
-                            .padding(start = 16.dp),
-                    )
-                }
-            }
-            // for final item
-            if (index == themes.size - 1) {
-                Spacer(modifier = Modifier.width(16.dp))
-            }
-        }
-    }
-}
-
-@Composable
-fun Plants() {
-    LazyColumn {
-        itemsIndexed(items = plants) { index, plant ->
-            if (index != 0) {
-                Spacer(modifier = Modifier.height(8.dp))
-            }
-            Plant(plant)
-            // for final item
-            if (index == plants.size - 1) {
-                Spacer(modifier = Modifier.height(16.dp))
-            }
-        }
-    }
-}
-
-
-@Composable
-fun Plant(plant: Plant) {
-    var checked by remember { mutableStateOf(false) }
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(start = 16.dp, end = 16.dp)
-    ) {
-        GlideImage(
-            imageModel = plant.imageUrl,
-            modifier = Modifier
-                .size(64.dp)
-                .clip(RoundedCornerShape(4.dp)),
-            alignment = Alignment.Center,
-            contentScale = ContentScale.Crop,
-
-            )
-        Box(
-            modifier = Modifier.weight(1f).height(64.dp),
-            contentAlignment = Alignment.BottomStart
-        ) {
-            Row (
-                verticalAlignment = Alignment.Bottom
-                    ){
-                Column(
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(start = 16.dp)
-                ) {
-                    Text(
-                        text = plant.name,
-                        style = typography.h2,
-                        color = MaterialTheme.colors.onBackground,
-                        modifier = Modifier
-                            .paddingFromBaseline(top = 24.dp),
-                    )
-                    Text(
-                        text = plant.description,
-                        style = typography.body1,
-                        color = MaterialTheme.colors.onBackground,
-                        modifier = Modifier
-                            .paddingFromBaseline(top = 16.dp, bottom = 24.dp),
-                    )
-                }
-                Checkbox(
-                    modifier = Modifier
-                        .padding(bottom = 24.dp)
-                        .size(24.dp),
-                    checked = checked,
-                    colors = CheckboxDefaults.colors(
-                        checkmarkColor = MaterialTheme.colors.onSecondary
-                    ),
-                    onCheckedChange = { checked = it }
-                )
-            }
-            Divider(
-                Modifier.padding(start = 8.dp)
-
-            )
-        }
-    }
-}
-
-@Preview
-@Composable
-fun PreviewPlant() {
-    MyTheme {
-        Plant(plants[0])
-    }
-}
-
 
 @Preview("Light Theme", widthDp = 360, heightDp = 640)
 @Composable
