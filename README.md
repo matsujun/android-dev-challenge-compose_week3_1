@@ -17,6 +17,12 @@ I think the layout is completely same as spec.
 But some color, and design of checkbox are looks little bit different.
 They are not defined on spec PDF, so I cant set them to completely same design.
 
+* Checkbox on PDF is larger than Checkbox of JetpackCompose.
+  * There are no spec of corner radius of checkbox, so I did not use full customized Checkbox
+* If I use OutlinedTextField, it has extra space above outline, and it is not same as design spec. So I put TextField inside of outlined Box.
+  * But there are no spec about outline.
+* There are no spec about height of divider on Home screen.
+  * So I just use default height.
 ## :camera_flash: Screenshots
 <!-- You can add more screenshots here if you like -->
 <img src="/results/screenshot_1.png" width="260">&emsp;<img src="/results/screenshot_2.png" width="260">&emsp;<img src="/results/screenshot_3.png" width="260">
