@@ -23,4 +23,13 @@
     <string name="login_policy_notice_link1">Terms of Use</string>
     <string name="login_policy_notice_link2">Privacy Policy</string>
     <string name="login_login">Log in</string>
+
+    <string name="main_home">Home</string>
+    <string name="main_favorites">Favorites</string>
+    <string name="main_profile">Profile</string>
+    <string name="main_cart">Cart</string>
+
+    <string name="home_search">Search</string>
+    <string name="home_themes">Browse themes</string>
+    <string name="home_garden">Design your home garden</string>
 </resources>

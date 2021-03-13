@@ -87,4 +87,6 @@ dependencies {
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
+    implementation 'dev.chrisbanes.accompanist:accompanist-insets:0.6.2'
+    implementation "com.github.skydoves:landscapist-glide:1.1.6"
 }

@@ -10,8 +10,11 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.ExtendedFloatingActionButton
 import androidx.compose.material.FloatingActionButtonDefaults
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -65,23 +68,24 @@ fun Welcome(navController: NavController? = null) {
                 modifier = Modifier.paddingFromBaseline(top = 24.dp, bottom = 40.dp),
                 style = typography.subtitle1,
             )
-            ExtendedFloatingActionButton(
+            Button(
                 onClick = {
 
                 },
-                text = {
-                    Text(
-                        text = stringResource(R.string.welcome_create_account),
-                        style = typography.button,
-                        color = colors.onSecondary
-                    )
-                },
+                shape = MaterialTheme.shapes.medium,
+                colors = ButtonDefaults.buttonColors(backgroundColor = colors.secondary),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 16.dp, end = 16.dp)
                     .height(48.dp),
-                elevation = FloatingActionButtonDefaults.elevation(0.dp, 0.dp)
-            )
+                elevation = ButtonDefaults.elevation(0.dp, 0.dp)
+            ) {
+                Text(
+                    text = stringResource(R.string.welcome_create_account),
+                    style = typography.button,
+                    color = colors.onSecondary
+                )
+            }
             TextButton(
                 onClick = { navController?.navigate("login") },
                 modifier = Modifier

@@ -26,18 +26,21 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.androiddevchallenge.ui.theme.MyTheme
+import dev.chrisbanes.accompanist.insets.ProvideWindowInsets
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
-            MyTheme {
-                WindowCompat.getInsetsController(
-                    window,
-                    window.decorView
-                )?.isAppearanceLightStatusBars = MaterialTheme.colors.isLight
-                MyApp()
+            ProvideWindowInsets {
+                MyTheme {
+                    WindowCompat.getInsetsController(
+                        window,
+                        window.decorView
+                    )?.isAppearanceLightStatusBars = MaterialTheme.colors.isLight
+                    MyApp()
+                }
             }
         }
     }
@@ -50,7 +53,7 @@ fun MyApp() {
     NavHost(navController, startDestination = "welcome") {
         composable(route = "welcome") { Welcome(navController) }
         composable(route = "login") { Login(navController) }
-        composable(route = "home") { Home() }
+        composable(route = "main") { Main() }
     }
 }
 

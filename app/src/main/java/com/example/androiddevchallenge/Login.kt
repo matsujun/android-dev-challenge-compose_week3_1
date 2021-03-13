@@ -13,12 +13,15 @@ import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.Button
 import androidx.compose.material.ExtendedFloatingActionButton
 import androidx.compose.material.FloatingActionButtonDefaults
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldColors
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -42,6 +45,9 @@ import androidx.navigation.compose.navigate
 import com.example.androiddevchallenge.ui.theme.MyTheme
 import com.example.androiddevchallenge.ui.theme.typography
 
+import androidx.annotation.StringRes
+import androidx.compose.ui.graphics.Color
+
 
 @Composable
 fun Login(navController: NavController? = null) {
@@ -61,37 +67,85 @@ fun Login(navController: NavController? = null) {
                 modifier = Modifier.paddingFromBaseline(top = 184.dp, bottom = 16.dp),
                 style = typography.h1,
             )
-            OutlinedTextField(
-                modifier = Modifier
-                    .height(56.dp)
-                    .fillMaxWidth(),
-                value = textMail,
-                onValueChange = { textMail = it },
-                colors = MyOutlinedTextColors(),
-                label = {
-                    Text(
-                        text = stringResource(R.string.login_mail_hint),
-                        style = typography.body1,
-                    )
-                }
+//            OutlinedTextField(
+//                modifier = Modifier
+//                    .height(56.dp)
+//                    .fillMaxWidth(),
+//                value = textMail,
+//                onValueChange = { textMail = it },
+//                colors = MyOutlinedTextColors(),
+//                placeholder = {
+//                    Text(
+//                        text = stringResource(R.string.login_mail_hint),
+//                        style = typography.body1,
+//                    )
+//                }
+//            )
+//            Spacer(modifier = Modifier.height(8.dp))
+//            OutlinedTextField(
+//                modifier = Modifier
+//                    .height(56.dp)
+//                    .fillMaxWidth(),
+//                value = textPassword,
+//                onValueChange = { textPassword = it },
+//                visualTransformation = PasswordVisualTransformation(),
+//                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+//                colors = MyOutlinedTextColors(),
+//                placeholder = {
+//                    Text(
+//                        text = stringResource(R.string.login_pass_hint),
+//                        style = typography.body1,
+//                    )
+//                }
+//            )
+            Box(
+                modifier = Modifier.height(56.dp).border(
+                    width = 1.dp,
+                        color = MaterialTheme.colors.onBackground,
+                shape = RoundedCornerShape(4.dp)
             )
+            ) {
+                TextField(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    value = textMail,
+                    onValueChange = { textMail = it },
+                    colors = MyOutlinedTextColors(),
+                    placeholder = {
+                        Text(
+                            text = stringResource(R.string.login_mail_hint),
+                            style = typography.body1,
+                        )
+                    }
+                )
+            }
+
             Spacer(modifier = Modifier.height(8.dp))
-            OutlinedTextField(
+            Box(
                 modifier = Modifier
                     .height(56.dp)
-                    .fillMaxWidth(),
-                value = textPassword,
-                onValueChange = { textPassword = it },
-                visualTransformation = PasswordVisualTransformation(),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                colors = MyOutlinedTextColors(),
-                label = {
-                    Text(
-                        text = stringResource(R.string.login_pass_hint),
-                        style = typography.body1,
-                    )
-                }
-            )
+                    .border(
+                        width = 1.dp,
+                    color = MaterialTheme.colors.onBackground,
+                    shape = RoundedCornerShape(4.dp)
+                )
+            ) {
+                TextField(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    value = textPassword,
+                    onValueChange = { textPassword = it },
+                    visualTransformation = PasswordVisualTransformation(),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                    colors = MyOutlinedTextColors(),
+                    placeholder = {
+                        Text(
+                            text = stringResource(R.string.login_pass_hint),
+                            style = typography.body1,
+                        )
+                    }
+                )
+            }
             LinkClickableText(
                 wholeStringResId = R.string.login_policy_notice,
                 listOf(
@@ -101,22 +155,24 @@ fun Login(navController: NavController? = null) {
                 modifier = Modifier.paddingFromBaseline(top = 24.dp, bottom = 16.dp)
             )
 
-            ExtendedFloatingActionButton(
+            Button(
                 onClick = {
-                    navController?.navigate("home")
+                    navController?.navigate("main")
                 },
-                text = {
-                    Text(
-                        text = stringResource(R.string.login_login),
-                        style = typography.button,
-                        color = MaterialTheme.colors.onSecondary
-                    )
-                },
+                shape = MaterialTheme.shapes.medium,
+                colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary),
                 modifier = Modifier
                     .fillMaxWidth()
+                    .padding(start = 16.dp, end = 16.dp)
                     .height(48.dp),
-                elevation = FloatingActionButtonDefaults.elevation(0.dp, 0.dp)
-            )
+                elevation = ButtonDefaults.elevation(0.dp, 0.dp)
+            ) {
+                Text(
+                    text = stringResource(R.string.login_login),
+                    style = typography.button,
+                    color = MaterialTheme.colors.onSecondary
+                )
+            }
         }
     }
 }
@@ -124,16 +180,18 @@ fun Login(navController: NavController? = null) {
 @Composable
 fun MyOutlinedTextColors(): TextFieldColors = TextFieldDefaults.outlinedTextFieldColors(
     cursorColor = MaterialTheme.colors.secondary,
-    focusedBorderColor = MaterialTheme.colors.secondary,
-    focusedLabelColor = MaterialTheme.colors.secondary,
+//    focusedBorderColor = MaterialTheme.colors.secondary,
+//    focusedLabelColor = MaterialTheme.colors.secondary,
+    focusedBorderColor = Color.Transparent,
     placeholderColor = MaterialTheme.colors.onBackground,
     unfocusedLabelColor = MaterialTheme.colors.onBackground,
-    unfocusedBorderColor = MaterialTheme.colors.onBackground,
+//    unfocusedBorderColor = MaterialTheme.colors.onBackground,
+    unfocusedBorderColor = Color.Transparent,
 )
 
 @Composable
 fun LinkClickableText(
-    wholeStringResId: Int,
+    @StringRes wholeStringResId: Int,
     links: List<Pair<Int, String>>,
     modifier: Modifier
 ) {
